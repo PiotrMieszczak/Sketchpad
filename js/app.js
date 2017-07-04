@@ -11,31 +11,29 @@ $(document).ready(()=>{
     let radius = 5; //radius of arc element
     ctx.lineWidth = radius*2; //lineWidth
     let color = 'black';
-    const list = $('ul li'); //list of changeWidth elements
 
 //FUNCTIONS
-
     const changeColor = ( (e)=>{ 
         color = $(e.currentTarget).data('color');
     });
 
     const penDown = ( (e)=>{
         paint = true;
-    })
+    });
 
     const penUp = ( (e)=>{
         paint = false;
         ctx.beginPath(); //end of current pen path, after disengage mouse. 
         //if not last path point would always connect to new path (created on next mousedown event)
-    })
+    });
 
     const clearSketchpad = ( e=>{ //clean sketchpad
         ctx.clearRect(0,0, window.innerWidth, window.innerHeight)
-    })
+    });
 
     const changeLineWidth = ( e=>{
-        radius = $()
-    })
+        radius = $(e.event.currentTarget).data('lineWidth');
+    });
 
     const draw = ( e=>{
         if(paint){ 
@@ -49,28 +47,7 @@ $(document).ready(()=>{
             ctx.beginPath();
             ctx.moveTo(e.clientX-canvas.offsetLeft,e.clientY-canvas.offsetTop)
         }
-    })
-
-//List SETUP & FUNCTIONS
-    $.each( list, (key,li)=>{ //hide all list elements 
-            $(li).addClass('hidden');
-        })
-
-    const hideList = ( ()=>{
-        console.log('test');
-        $.each( list, (key,li)=>{ //hide all list elements 
-            $(li).removeClass('show'); 
-            $(li).addClass('hidden');
-        })
-    })
-   
-
-    const showList = ( ()=>{
-        $.each( list, (key, li)=>{ //show all list elements
-             $(li).removeClass('hidden'); 
-             $(li).addClass('show');
-        })
-    })
+    });
 
 //EVENTS
     $('canvas').mousemove(draw); 
@@ -78,6 +55,4 @@ $(document).ready(()=>{
     $('canvas').mouseup(penUp);
     $('#clearSketch').click(clearSketchpad);
     $('.colors_pallet div').click(changeColor);
-    $('ul').mouseover(showList);
-    $('ul').mouseleave(hideList);
 });
