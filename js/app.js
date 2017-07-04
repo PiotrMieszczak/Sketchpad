@@ -4,7 +4,6 @@ $(document).ready(()=>{
     const canvas= document.querySelector('#canvas');
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-
 //VARIABLES
     const ctx = canvas.getContext('2d');
     let paint= false; //true, if the mouse is press down
@@ -23,7 +22,6 @@ $(document).ready(()=>{
         paint = true;
         if(penType === 'spray'){
             intervalId = setInterval( ()=>{
-                console.log('test')
                 drawSpray(e)
             },64)
         }
@@ -62,7 +60,7 @@ $(document).ready(()=>{
 		};
     }
 
-    const drawLine = e=>{
+    const drawLine = e=>{ 
             let offsetLeft = canvas.offsetLeft;
             let offsetTop = canvas.offsetTop;
             let mouseX = e.clientX;
@@ -104,6 +102,12 @@ $(document).ready(()=>{
 
     });
 
+    const saveImage =  function(){
+         var dataURL = canvas.toDataURL('image/png');
+         this.href = dataURL;
+         alert('Plik zapisany')
+         clearSketchpad();
+    }
 //EVENTS
     $('canvas').mousemove(draw); 
     $('canvas').mousedown(penDown) 
@@ -113,4 +117,5 @@ $(document).ready(()=>{
     $('.colors_pallet div').click(changeColor);
     $('select#lineWidth').change(changeLineWidth);
     $('select#penType').change(changeType);
+    $('#save').click(saveImage);
 });

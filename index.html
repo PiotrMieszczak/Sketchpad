@@ -10,19 +10,23 @@
 <body>
     <header>
         <div class="container clearfix">
-            <nav> 
-                <button id="clearSketch">New</button>
-                <button id="save">Save</button>
-                <button id="rubber">Rubber</button>
-                <select id="lineWidth">
+            <nav id="options"> 
+                <button class="btn" id="clearSketch">New</button>
+                <a href="#" class="btn" id="save"
+                download="my-file-name.png">Save</a>
+            </nav>
+            <nav id="tools">
+                <button  class="btn" id="rubber">Rubber</button>
+                <select class="btn" id="lineWidth">
                     <option value=5>small</option>
                     <option selected="selected" value=10>normal</option>
                     <option value=20>large</option>
                 </select>
-                <select  id="penType">
+                <select  class="btn" id="penType">
                     <option selected="selected" value="line">line</option>
                     <option value="spray">spray</option>
                 </select>
+                
             </nav>
             <div class="colors_pallet">
                     <div data-color="red"></div>
@@ -32,7 +36,7 @@
                     <div data-color="orange"></div>
                     <div data-color="purple"></div>
                     <div data-color="black"></div>
-            </div>
+                </div>
         </div>
     </header>
 

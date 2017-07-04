@@ -3,41 +3,46 @@ header{
     margin: 0;
     padding: 1%;
 }
-canvas{
-    border: 1px solid black;
-}
 
 .container{
-    max-width: 1250px;
+    /*max-width: 1250px;*/
     margin: 0 auto;
+    display: flex;
+    justify-content: center;
 }
 
 /*TOOLS section */
 nav{
-    width: 30vw;
-    float: left;
+    width: 20vw;
+    /*float: left;*/
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: flex-start;
 }
 
-button, select{
+#save{
+    padding-top:2%;
+}
+
+#tools button, select{
+    
+}
+.btn{
+    background-color: black;
+    border:none;
+    color: white;
     text-align: center;
-}
-.hidden{
-    display: none;
-}
-
-.show{
-    display: block;
-}
-#clearSketch, #save{
+    text-decoration: none;
+    font-size: 16px;
+    text-align: center;
     width: 5vw;
+    margin: 1%;
     height: 5vh;
 }
 
+
 .colors_pallet {
-    float: right;
+    /*float: right;*/
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
