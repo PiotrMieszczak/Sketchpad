@@ -3,6 +3,9 @@ header{
     margin: 0;
     padding: 1%;
 }
+canvas{
+    border: 1px solid black;
+}
 
 .container{
     max-width: 1250px;
@@ -11,16 +14,16 @@ header{
 
 /*TOOLS section */
 nav{
-    width: 30%;
+    width: 30vw;
     float: left;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
 }
 
-nav ul{
-    color: white;
+button, select{
+    text-align: center;
 }
-
 .hidden{
     display: none;
 }
@@ -39,11 +42,10 @@ nav ul{
     flex-wrap: wrap;
     justify-content: center;
     width: 25vw;
-    height: 25vh;
+    height: 10vh;
 }
 .colors_pallet div{
-    width: 5vw;
-    height: 50%;
+    width: 3vw;
     border-radius: 20%;
     margin: 1% 3% 0 0;
 }

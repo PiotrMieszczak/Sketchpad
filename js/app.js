@@ -35,21 +35,45 @@ $(document).ready(()=>{
     });
     const rubber = ( (e)=>{
         color = 'white';
-        console.log(color);
     })
-    const draw = ( e=>{
-        if(paint){ 
-            ctx.fillStyle = color;
-            ctx.strokeStyle = color;
-            ctx.lineWidth = radius*2;
 
-            ctx.lineTo(e.clientX-canvas.offsetLeft, e.clientY-canvas.offsetTop)
+    const getRandomOffset = radius=> {
+		let random_angle = Math.random() * (2*Math.PI);
+		let random_radius = Math.random() * radius;
+
+
+        return{
+			x: Math.cos(random_angle) * random_radius,
+			y: Math.sin(random_angle) * random_radius    
+		};
+    }
+
+    const drawLine = e=>{
+        ctx.lineTo(e.clientX-canvas.offsetLeft, e.clientY-canvas.offsetTop)
             ctx.stroke();
             ctx.beginPath();
             ctx.arc(e.clientX-canvas.offsetLeft, e.clientY-canvas.offsetTop, radius, 0, Math.PI * 2);
             ctx.fill();
             ctx.beginPath();
             ctx.moveTo(e.clientX-canvas.offsetLeft,e.clientY-canvas.offsetTop)
+    }
+
+    const drawSpray =e=>{
+        for(let i=0; i< 30;i++){
+            var offset = getRandomOffset(10);
+            console.log('x:',offset.x,'y: ',offset.y);
+            ctx.fillRect((e.clientX+offset.x)-canvas.offsetLeft,(e.clientY+offset.y)-canvas.offsetTop, 1, 1);
+        }
+    }
+    const draw = ( e=>{
+        if(paint){ 
+            ctx.fillStyle = color;
+            ctx.strokeStyle = color;
+            ctx.lineWidth = radius*2;
+            //DRAW LINE
+            // drawLine(e);
+           //DRAW SPRAY
+           drawSpray(e)
         }
     });
 
