@@ -11,19 +11,30 @@ $(document).ready(()=>{
     let radius = $('select#lineWidth').val(); //radius of arc element
     let color = 'black';
     let penType = $('select#penType').val();
+    let spray = false;
 //FUNCTIONS
+    let help = false;
+    let intervalId = null;
+    
     const changeColor = ( (e)=>{ 
         color = $(e.currentTarget).data('color');
     });
-    let help =false;
+
     const penDown = ( (e)=>{
         paint = true;
-        help= true;
-    });
+        if(penType === 'spray' || help){
+            intervalId = setInterval( ()=>{
+                console.log('test')
+                drawSpray(e)
+            },64)
+        }
+    })
 
     const penUp = ( (e)=>{
         paint = false;
-        ctx.beginPath(); //end of current pen path, after disengage mouse. 
+        ctx.beginPath(); 
+        clearInterval(intervalId)
+        //end of current pen path, after disengage mouse. 
         //if not last path point would always connect to new path (created on next mousedown event)
     });
 
@@ -45,7 +56,6 @@ $(document).ready(()=>{
     const getRandomOffset = radius => { 
 		let random_angle = Math.random() * (2*Math.PI);
 		let random_radius = Math.random() * radius;
-
 
         return{
 			x: Math.cos(random_angle) * random_radius,
@@ -69,14 +79,16 @@ $(document).ready(()=>{
     }
 
     const drawSpray =e=>{
-        for(let i=0; i< 20;i++){
+        for(let i=0; i< 50;i++){
             var offset = getRandomOffset(radius);
-            ctx.fillRect((e.clientX+offset.x)-canvas.offsetLeft,(e.clientY+offset.y)-canvas.offsetTop, 1, 1);
+            ctx.fillRect((e.clientX-offset.x)-canvas.offsetLeft,(e.clientY-offset.y)-canvas.offsetTop, 1, 1);
         }
     }
 
     //MAIN DRAW FN
     const draw = ( e=>{ 
+        clearInterval(intervalId);
+        help = true;
         if(paint){ 
             ctx.fillStyle = color;
             ctx.strokeStyle = color;
@@ -85,16 +97,17 @@ $(document).ready(()=>{
             if(penType ==='line'){
             drawLine(e);
             }
-          // DRAW SPRAY
+          //DRAW SPRAY
            if(penType ==='spray'){
             drawSpray(e);
            }
         }
+
     });
 
 //EVENTS
     $('canvas').mousemove(draw); 
-    $('canvas').mousedown(penDown); 
+    $('canvas').mousedown(penDown) 
     $('canvas').mouseup(penUp);
     $('#clearSketch').click(clearSketchpad);
     $('#rubber').click(rubber);
