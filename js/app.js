@@ -8,16 +8,17 @@ $(document).ready(()=>{
 //VARIABLES
     const ctx = canvas.getContext('2d');
     let paint= false; //true, if the mouse is press down
-    let radius = $('select').val(); //radius of arc element
+    let radius = $('select#lineWidth').val(); //radius of arc element
     let color = 'black';
-
+    let penType = $('select#penType').val();
 //FUNCTIONS
     const changeColor = ( (e)=>{ 
         color = $(e.currentTarget).data('color');
     });
-
+    let help =false;
     const penDown = ( (e)=>{
         paint = true;
+        help= true;
     });
 
     const penUp = ( (e)=>{
@@ -31,13 +32,17 @@ $(document).ready(()=>{
     });
 
     const changeLineWidth = ( function(){
-        radius = this.value;
+        radius = this.value; //get current value of selector#lineWidth
     });
     const rubber = ( (e)=>{
         color = 'white';
     })
 
-    const getRandomOffset = radius=> {
+    const changeType = (function(){
+        penType = this.value; //get current value of selector#penType
+    })
+
+    const getRandomOffset = radius => { 
 		let random_angle = Math.random() * (2*Math.PI);
 		let random_radius = Math.random() * radius;
 
@@ -49,31 +54,41 @@ $(document).ready(()=>{
     }
 
     const drawLine = e=>{
-        ctx.lineTo(e.clientX-canvas.offsetLeft, e.clientY-canvas.offsetTop)
+            let offsetLeft = canvas.offsetLeft;
+            let offsetTop = canvas.offsetTop;
+            let mouseX = e.clientX;
+            let mouseY =e.clientY;
+
+            ctx.lineTo(mouseX-offsetLeft, mouseY-offsetTop)
             ctx.stroke();
             ctx.beginPath();
-            ctx.arc(e.clientX-canvas.offsetLeft, e.clientY-canvas.offsetTop, radius, 0, Math.PI * 2);
+            ctx.arc(mouseX-offsetLeft, mouseY-offsetTop, radius, 0, Math.PI * 2);
             ctx.fill();
             ctx.beginPath();
-            ctx.moveTo(e.clientX-canvas.offsetLeft,e.clientY-canvas.offsetTop)
+            ctx.moveTo(mouseX-offsetLeft, mouseY-offsetTop)
     }
 
     const drawSpray =e=>{
-        for(let i=0; i< 30;i++){
-            var offset = getRandomOffset(10);
-            console.log('x:',offset.x,'y: ',offset.y);
+        for(let i=0; i< 20;i++){
+            var offset = getRandomOffset(radius);
             ctx.fillRect((e.clientX+offset.x)-canvas.offsetLeft,(e.clientY+offset.y)-canvas.offsetTop, 1, 1);
         }
     }
-    const draw = ( e=>{
+
+    //MAIN DRAW FN
+    const draw = ( e=>{ 
         if(paint){ 
             ctx.fillStyle = color;
             ctx.strokeStyle = color;
             ctx.lineWidth = radius*2;
-            //DRAW LINE
-            // drawLine(e);
-           //DRAW SPRAY
-           drawSpray(e)
+           // DRAW LINE
+            if(penType ==='line'){
+            drawLine(e);
+            }
+          // DRAW SPRAY
+           if(penType ==='spray'){
+            drawSpray(e);
+           }
         }
     });
 
@@ -82,8 +97,8 @@ $(document).ready(()=>{
     $('canvas').mousedown(penDown); 
     $('canvas').mouseup(penUp);
     $('#clearSketch').click(clearSketchpad);
-    $('.colors_pallet div').click(changeColor);
-    $('select').change(changeLineWidth);
     $('#rubber').click(rubber);
-
+    $('.colors_pallet div').click(changeColor);
+    $('select#lineWidth').change(changeLineWidth);
+    $('select#penType').change(changeType);
 });
