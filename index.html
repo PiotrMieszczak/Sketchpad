@@ -3,14 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <title>Sketchpad</title>
+    <link rel="stylesheet" href="./css/reset.css" />
     <link rel="stylesheet" href="./css/main.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 <body>
-    <header class="main_width">
-        <section class="nav"> 
-            <button class="clearSketch">wyczysc</button>
-        </section>
+    <header>
+        <div class="container clearfix">
+            <nav> 
+                <button id="clearSketch">NEW</button>
+            </nav>
+            <div class="colors_pallet">
+                    <div data-color="red"></div>
+                    <div data-color="yellow"></div>
+                    <div data-color="blue"></div>
+                    <div data-color="green"></div>
+                    <div data-color="orange"></div>
+                    <div data-color="purple"></div>
+            </div>
+        </div>
     </header>
 
     <section class="main_width">

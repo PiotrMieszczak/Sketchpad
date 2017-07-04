@@ -5,45 +5,43 @@ $(document).ready(()=>{
         canvas.height = window.innerHeight;
 
         let ctx = canvas.getContext('2d');
-    
-   
-    // ctx.beginPath();
-    // ctx.moveTo(50,50); 
-    // ctx.lineTo(300, 100);
-    // ctx.lineTo(400, 300);
-    // ctx.stroke(); //rysuje zewnetrzny obrys kształtu ; fill() <- wypełnia kształt
 
-    let paint= false; //true jezeli mysz jest nacisnieta
-    let radius = 5;
-    ctx.lineWidth = radius*2;
+    let paint= false; //true, if the mouse is press down
+    let radius = 5; //radius of arc element
+    ctx.lineWidth = radius*2; //lineWidth
 
     
     
-    let engage = ( (e)=>{
+    const penDown = ( (e)=>{
         paint = true;
     })
 
-    let disengage = ( (e)=>{
+    const penUp = ( (e)=>{
         paint = false;
-        ctx.beginPath(); //konczy punkt
+        ctx.beginPath(); //end of current pen path, after disengage mouse. 
+        //if not last path point would always connect to new path (created on next draw)
+    })
+
+    const clearSketchpad = ( e=>{ //clean sketchpad
+        ctx.clearRect(0,0, window.innerWidth, window.innerHeight)
     })
 
     let draw = ( e=>{
-        if(paint){ //if paint = true, czyli jezeli myszka jest nacisnieta rysuj linie
-            //console.log('X',e.clientX,'Y:',e.clientY)
-            ctx.lineTo(e.clientX, e.clientY-40)
+        if(paint){ 
+            ctx.fillStyle = 'red';
+            ctx.strokeStyle = 'red';
+            ctx.lineTo(e.clientX-canvas.offsetLeft, e.clientY-canvas.offsetTop)
             ctx.stroke();
             ctx.beginPath();
-            ctx.arc(e.clientX, e.clientY-40, radius, 0, Math.PI * 2);
+            ctx.arc(e.clientX-canvas.offsetLeft, e.clientY-canvas.offsetTop, radius, 0, Math.PI * 2);
             ctx.fill();
             ctx.beginPath();
-            ctx.moveTo(e.clientX,e.clientY-40)
-           
+            ctx.moveTo(e.clientX-canvas.offsetLeft,e.clientY-canvas.offsetTop)
         }
     })
 
     $('canvas').mousemove(draw);
-    $('canvas').mousedown(engage);
-    $('canvas').mouseup(disengage);
-
+    $('canvas').mousedown(penDown);
+    $('canvas').mouseup(penUp);
+    $('#clearSketch').click(clearSketchpad);
 });
