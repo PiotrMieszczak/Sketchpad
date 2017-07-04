@@ -8,8 +8,7 @@ $(document).ready(()=>{
 //VARIABLES
     const ctx = canvas.getContext('2d');
     let paint= false; //true, if the mouse is press down
-    let radius = 5; //radius of arc element
-    ctx.lineWidth = radius*2; //lineWidth
+    let radius = $('select').val(); //radius of arc element
     let color = 'black';
 
 //FUNCTIONS
@@ -31,14 +30,16 @@ $(document).ready(()=>{
         ctx.clearRect(0,0, window.innerWidth, window.innerHeight)
     });
 
-    const changeLineWidth = ( e=>{
-        radius = $(e.event.currentTarget).data('lineWidth');
+    const changeLineWidth = ( function(){
+        radius = this.value;
     });
 
     const draw = ( e=>{
         if(paint){ 
             ctx.fillStyle = color;
             ctx.strokeStyle = color;
+            ctx.lineWidth = radius*2;
+
             ctx.lineTo(e.clientX-canvas.offsetLeft, e.clientY-canvas.offsetTop)
             ctx.stroke();
             ctx.beginPath();
@@ -55,4 +56,6 @@ $(document).ready(()=>{
     $('canvas').mouseup(penUp);
     $('#clearSketch').click(clearSketchpad);
     $('.colors_pallet div').click(changeColor);
+    $('select').change(changeLineWidth);
+
 });
