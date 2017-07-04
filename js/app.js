@@ -11,6 +11,12 @@ $(document).ready(()=>{
     ctx.lineWidth = radius*2; //lineWidth
 
     let color = 'black';
+    const colors = $('.colors_pallet div');
+
+    colors.click( (e)=>{
+        color = $(e.currentTarget).data('color');
+        console.log(color);
+    });
 
     const penDown = ( (e)=>{
         paint = true;
@@ -39,8 +45,10 @@ $(document).ready(()=>{
         }
     })
 
-    const colors = $('')
+    
 
+
+    
     $('canvas').mousemove(draw);
     $('canvas').mousedown(penDown);
     $('canvas').mouseup(penUp);
