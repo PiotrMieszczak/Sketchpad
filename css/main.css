@@ -1,5 +1,5 @@
 header{
-    background-color:black;
+    background-color: black;
     margin: 0;
     padding: 1%;
 }
@@ -38,7 +38,7 @@ nav ul{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    width: 20vw;
+    width: 25vw;
     height: 20vh;
 }
 .colors_pallet div{
@@ -64,4 +64,8 @@ nav ul{
 }
 .colors_pallet div:nth-of-type(6){
     background-color: purple;
+}
+.colors_pallet div:nth-of-type(7){
+    background-color: black;
+    border: 1px solid white;
 }
