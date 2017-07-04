@@ -1,21 +1,22 @@
 $(document).ready(()=>{
 
-        const canvas= document.querySelector('#canvas');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+//CANVAS SETUP
+    const canvas= document.querySelector('#canvas');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 
-        let ctx = canvas.getContext('2d');
-
+//VARIABLES
+    const ctx = canvas.getContext('2d');
     let paint= false; //true, if the mouse is press down
     let radius = 5; //radius of arc element
     ctx.lineWidth = radius*2; //lineWidth
-
     let color = 'black';
-    const colors = $('.colors_pallet div');
+    const list = $('ul li'); //list of changeWidth elements
 
-    colors.click( (e)=>{
+//FUNCTIONS
+
+    const changeColor = ( (e)=>{ 
         color = $(e.currentTarget).data('color');
-        console.log(color);
     });
 
     const penDown = ( (e)=>{
@@ -25,13 +26,18 @@ $(document).ready(()=>{
     const penUp = ( (e)=>{
         paint = false;
         ctx.beginPath(); //end of current pen path, after disengage mouse. 
-        //if not last path point would always connect to new path (created on next draw)
+        //if not last path point would always connect to new path (created on next mousedown event)
     })
 
     const clearSketchpad = ( e=>{ //clean sketchpad
         ctx.clearRect(0,0, window.innerWidth, window.innerHeight)
     })
-    let draw = ( e=>{
+
+    const changeLineWidth = ( e=>{
+        radius = $()
+    })
+
+    const draw = ( e=>{
         if(paint){ 
             ctx.fillStyle = color;
             ctx.strokeStyle = color;
@@ -45,12 +51,33 @@ $(document).ready(()=>{
         }
     })
 
-    
+//List SETUP & FUNCTIONS
+    $.each( list, (key,li)=>{ //hide all list elements 
+            $(li).addClass('hidden');
+        })
 
+    const hideList = ( ()=>{
+        console.log('test');
+        $.each( list, (key,li)=>{ //hide all list elements 
+            $(li).removeClass('show'); 
+            $(li).addClass('hidden');
+        })
+    })
+   
 
-    
-    $('canvas').mousemove(draw);
-    $('canvas').mousedown(penDown);
+    const showList = ( ()=>{
+        $.each( list, (key, li)=>{ //show all list elements
+             $(li).removeClass('hidden'); 
+             $(li).addClass('show');
+        })
+    })
+
+//EVENTS
+    $('canvas').mousemove(draw); 
+    $('canvas').mousedown(penDown); 
     $('canvas').mouseup(penUp);
     $('#clearSketch').click(clearSketchpad);
+    $('.colors_pallet div').click(changeColor);
+    $('ul').mouseover(showList);
+    $('ul').mouseleave(hideList);
 });

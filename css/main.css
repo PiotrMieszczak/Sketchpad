@@ -4,18 +4,33 @@ header{
     padding: 1%;
 }
 
-nav{
-    width: 30%;
-    float: left;
-}
-
 .container{
     max-width: 1020px;
     margin: 0 auto;
 }
-#clearSketch{
+
+/*TOOLS section */
+nav{
+    width: 30%;
+    float: left;
+    display: flex;
+    justify-content: space-between;
+}
+
+nav ul{
+    color: white;
+}
+
+.hidden{
+    display: none;
+}
+
+.show{
+    display: block;
+}
+#clearSketch, #save{
     width: 5vw;
-    height: 10vh;
+    height: 5vh;
 }
 
 .colors_pallet {
