@@ -10,8 +10,8 @@ $(document).ready(()=>{
     let radius = 5; //radius of arc element
     ctx.lineWidth = radius*2; //lineWidth
 
-    
-    
+    let color = 'black';
+
     const penDown = ( (e)=>{
         paint = true;
     })
@@ -25,11 +25,10 @@ $(document).ready(()=>{
     const clearSketchpad = ( e=>{ //clean sketchpad
         ctx.clearRect(0,0, window.innerWidth, window.innerHeight)
     })
-
     let draw = ( e=>{
         if(paint){ 
-            ctx.fillStyle = 'red';
-            ctx.strokeStyle = 'red';
+            ctx.fillStyle = color;
+            ctx.strokeStyle = color;
             ctx.lineTo(e.clientX-canvas.offsetLeft, e.clientY-canvas.offsetTop)
             ctx.stroke();
             ctx.beginPath();
@@ -39,6 +38,8 @@ $(document).ready(()=>{
             ctx.moveTo(e.clientX-canvas.offsetLeft,e.clientY-canvas.offsetTop)
         }
     })
+
+    const colors = $('')
 
     $('canvas').mousemove(draw);
     $('canvas').mousedown(penDown);
