@@ -33,7 +33,10 @@ $(document).ready(()=>{
     const changeLineWidth = ( function(){
         radius = this.value;
     });
-
+    const rubber = ( (e)=>{
+        color = 'white';
+        console.log(color);
+    })
     const draw = ( e=>{
         if(paint){ 
             ctx.fillStyle = color;
@@ -57,5 +60,6 @@ $(document).ready(()=>{
     $('#clearSketch').click(clearSketchpad);
     $('.colors_pallet div').click(changeColor);
     $('select').change(changeLineWidth);
+    $('#rubber').click(rubber);
 
 });

@@ -1,11 +1,11 @@
 header{
-    background-color: black;
+    background-color: rgb(20.8%, 49.8%, 69%);
     margin: 0;
     padding: 1%;
 }
 
 .container{
-    max-width: 1020px;
+    max-width: 1250px;
     margin: 0 auto;
 }
 
@@ -39,7 +39,7 @@ nav ul{
     flex-wrap: wrap;
     justify-content: center;
     width: 25vw;
-    height: 20vh;
+    height: 25vh;
 }
 .colors_pallet div{
     width: 5vw;
@@ -67,5 +67,4 @@ nav ul{
 }
 .colors_pallet div:nth-of-type(7){
     background-color: black;
-    border: 1px solid white;
 }
