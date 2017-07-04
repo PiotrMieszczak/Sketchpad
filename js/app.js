@@ -11,9 +11,8 @@ $(document).ready(()=>{
     let radius = $('select#lineWidth').val(); //radius of arc element
     let color = 'black';
     let penType = $('select#penType').val();
-    let spray = false;
+
 //FUNCTIONS
-    let help = false;
     let intervalId = null;
     
     const changeColor = ( (e)=>{ 
@@ -22,7 +21,7 @@ $(document).ready(()=>{
 
     const penDown = ( (e)=>{
         paint = true;
-        if(penType === 'spray' || help){
+        if(penType === 'spray'){
             intervalId = setInterval( ()=>{
                 console.log('test')
                 drawSpray(e)
@@ -87,8 +86,8 @@ $(document).ready(()=>{
 
     //MAIN DRAW FN
     const draw = ( e=>{ 
-        clearInterval(intervalId);
-        help = true;
+        clearInterval(intervalId); //if not interval would not stop on mouse move
+       
         if(paint){ 
             ctx.fillStyle = color;
             ctx.strokeStyle = color;
