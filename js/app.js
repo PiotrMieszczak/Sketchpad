@@ -6,20 +6,25 @@ $(document).ready(()=>{
     canvas.height = window.innerHeight;
 //VARIABLES
     const ctx = canvas.getContext('2d');
+    ctx.fillStyle = 'white';
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+
     let paint= false; //true, if the mouse is press down
     let radius = $('select#lineWidth').val(); //radius of arc element
     let color = 'black';
     let penType = $('select#penType').val();
+    let intervalId = null;
 
 //FUNCTIONS
-    let intervalId = null;
-    
+
     const changeColor = ( (e)=>{ 
         color = $(e.currentTarget).data('color');
     });
 
     const penDown = ( (e)=>{
         paint = true;
+        drawLine(e);
+        drawSpray(e);
         if(penType === 'spray'){
             intervalId = setInterval( ()=>{
                 drawSpray(e)
@@ -36,7 +41,9 @@ $(document).ready(()=>{
     });
 
     const clearSketchpad = ( e=>{ //clean sketchpad
-        ctx.clearRect(0,0, window.innerWidth, window.innerHeight)
+        ctx.clearRect(0,0, window.innerWidth, window.innerHeight);
+        ctx.fillStyle = 'white';
+        ctx.fillRect(0,0,canvas.width,canvas.height);
     });
 
     const changeLineWidth = ( function(){
@@ -74,18 +81,15 @@ $(document).ready(()=>{
             ctx.beginPath();
             ctx.moveTo(mouseX-offsetLeft, mouseY-offsetTop)
     }
-
     const drawSpray =e=>{
         for(let i=0; i< 50;i++){
             var offset = getRandomOffset(radius);
             ctx.fillRect((e.clientX-offset.x)-canvas.offsetLeft,(e.clientY-offset.y)-canvas.offsetTop, 1, 1);
         }
     }
-
     //MAIN DRAW FN
     const draw = ( e=>{ 
         clearInterval(intervalId); //if not interval would not stop on mouse move
-       
         if(paint){ 
             ctx.fillStyle = color;
             ctx.strokeStyle = color;
@@ -99,9 +103,7 @@ $(document).ready(()=>{
             drawSpray(e);
            }
         }
-
     });
-
     const saveImage =  function(){
          var dataURL = canvas.toDataURL('image/png');
          this.href = dataURL;
