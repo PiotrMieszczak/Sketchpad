@@ -23,9 +23,11 @@ $(document).ready(()=>{
 
     const penDown = ( (e)=>{
         paint = true;
-        drawLine(e);
-        drawSpray(e);
+        if(penType === 'brush'){
+            drawLine(e);
+        }
         if(penType === 'spray'){
+             drawSpray(e);
             intervalId = setInterval( ()=>{
                 drawSpray(e)
             },64)
@@ -95,7 +97,7 @@ $(document).ready(()=>{
             ctx.strokeStyle = color;
             ctx.lineWidth = radius*2;
            // DRAW LINE
-            if(penType ==='line'){
+            if(penType ==='brush'){
             drawLine(e);
             }
           //DRAW SPRAY
