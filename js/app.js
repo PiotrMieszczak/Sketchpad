@@ -23,11 +23,12 @@ $(document).ready(()=>{
 
     const penDown = ( (e)=>{
         paint = true;
+
         if(penType === 'brush'){
             drawLine(e);
         }
         if(penType === 'spray'){
-             drawSpray(e);
+            //  drawSpray(e);
             intervalId = setInterval( ()=>{
                 drawSpray(e)
             },64)
@@ -70,11 +71,12 @@ $(document).ready(()=>{
     }
 
     const drawLine = e=>{ 
+            ctx.fillStyle = color;
             let offsetLeft = canvas.offsetLeft;
             let offsetTop = canvas.offsetTop;
             let mouseX = e.clientX;
             let mouseY =e.clientY;
-
+            
             ctx.lineTo(mouseX-offsetLeft, mouseY-offsetTop)
             ctx.stroke();
             ctx.beginPath();
@@ -84,6 +86,7 @@ $(document).ready(()=>{
             ctx.moveTo(mouseX-offsetLeft, mouseY-offsetTop)
     }
     const drawSpray =e=>{
+        ctx.fillStyle = color;
         for(let i=0; i< 50;i++){
             var offset = getRandomOffset(radius);
             ctx.fillRect((e.clientX-offset.x)-canvas.offsetLeft,(e.clientY-offset.y)-canvas.offsetTop, 1, 1);
