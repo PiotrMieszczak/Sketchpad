@@ -109,7 +109,6 @@ $(document).ready(()=>{
     const saveImage =  function(){
          var dataURL = canvas.toDataURL('image/png');
          this.href = dataURL;
-         alert('Plik zapisany')
          clearSketchpad();
     }
 //EVENTS
