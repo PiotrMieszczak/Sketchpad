@@ -15,7 +15,7 @@ $(document).ready(()=>{
     let penType = $('select#penType').val();
     let intervalId = null;
 
-    $('span.btn').hide(); //?? 
+ 
 //FUNCTIONS
 
     const changeColor = ( (e)=>{ 
@@ -52,7 +52,7 @@ $(document).ready(()=>{
 
     const changeLineWidth = ( function(){
         radius = this.value; //get current value of selector#lineWidth
-        $('span.btn').hide();
+
     });
     const rubber = ( (e)=>{
         color = 'white';
@@ -60,7 +60,7 @@ $(document).ready(()=>{
 
     const changeType = (function(){
         penType = this.value; //get current value of selector#penType
-        $('span.btn').hide();
+
     })
 
     const getRandomOffset = radius => { 
