@@ -116,14 +116,13 @@ $(document).ready(()=>{
     }
 //EVENTS
     $('canvas').mousemove(draw); 
-    $('canvas').touchmove(draw); 
+    $('canvas').on('touchmove',draw); 
 
     $('canvas').mousedown(penDown) 
-    $('canvas').touchstart(penDown) 
+    $('canvas').on('touchstart',penDown); 
     
     $('canvas').mouseup(penUp);
-    $('canvas').touchend(penUp);
-
+    $('canvas').on('touchend',penUp);
 
 
     $('#clearSketch').click(clearSketchpad);
