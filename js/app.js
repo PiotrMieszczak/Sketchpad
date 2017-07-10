@@ -57,6 +57,7 @@ $(document).ready(()=>{
     })
 
     const changeType = (function(){
+        console.log(penType);
         penType = this.value; //get current value of selector#penType
     })
 
