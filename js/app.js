@@ -52,14 +52,15 @@ $(document).ready(()=>{
 
     const changeLineWidth = ( function(){
         radius = this.value; //get current value of selector#lineWidth
+        $('span.btn').hide();
     });
     const rubber = ( (e)=>{
         color = 'white';
     })
 
     const changeType = (function(){
-        console.log(penType);
         penType = this.value; //get current value of selector#penType
+        $('span.btn').hide();
     })
 
     const getRandomOffset = radius => { 
