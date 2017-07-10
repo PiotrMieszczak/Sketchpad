@@ -116,12 +116,23 @@ $(document).ready(()=>{
     }
 //EVENTS
     $('canvas').mousemove(draw); 
+    $('canvas').touchmove(draw); 
+
     $('canvas').mousedown(penDown) 
+    $('canvas').touchstart(penDown) 
+    
     $('canvas').mouseup(penUp);
+    $('canvas').touchend(penUp);
+
+
+
     $('#clearSketch').click(clearSketchpad);
     $('#rubber').click(rubber);
+    
     $('.colors_pallet div').click(changeColor);
+    
     $('select#lineWidth').change(changeLineWidth);
     $('select#penType').change(changeType);
+    
     $('#save').click(saveImage);
 });
