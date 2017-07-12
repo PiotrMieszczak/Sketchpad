@@ -41,9 +41,6 @@ $(document).ready(()=>{
         ctx.beginPath();  //end of current pen path, after disengage mouse. 
         //if not last path point would always connect to new path (created on next mousedown event)
         clearInterval(intervalId);
-        console.log(intervalId)
-        console.log('test pen up');
-       
     });
 
     const clearSketchpad = ( e=>{ //clean sketchpad
