@@ -97,7 +97,7 @@ $(document).ready(()=>{
             ctx.fillRect((e.clientX-offset.x)-canvas.offsetLeft,(e.clientY-offset.y)-canvas.offsetTop, 1, 1);
         }
     }
-    //MAIN DRAW FN
+    //MAIN DRAW Fn
     const draw = ( e=>{ 
         clearInterval(intervalId); //if not interval would not stop on mouse move
         if(paint){ 
@@ -120,14 +120,22 @@ $(document).ready(()=>{
          clearSketchpad();
     }
 
-    const windowResize = function(){ //resizing widow will clear canvas, need to store current ctx as image when redraw it
+    const windowResize = ()=>{ 
+        //resizing widow will clear canvas, need to store current ctx as image when redraw it
         let temp_ctx = ctx.getImageData(0,0,canvas.width,canvas.height);
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
         ctx.putImageData(temp_ctx,0,0);
     }
 
+    const container =$('.container');
+    container.hide();
+    const toggleMenu = ()=>{
+        container.toggle();
+    }
 //EVENTS
+    $('header h1').click(toggleMenu);
+
     $('canvas').mousemove(draw); 
     $('canvas').on('vmousemove',draw); 
 
@@ -148,5 +156,5 @@ $(document).ready(()=>{
     $('#save').click(saveImage);
 
     $(window).on('resize', windowResize);
-
+    
 });
