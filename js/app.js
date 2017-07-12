@@ -20,6 +20,7 @@ $(document).ready(()=>{
 
     const changeColor = ( (e)=>{ 
         color = $(e.currentTarget).data('color');
+        toggleMenu();
     });
 
     const penDown = ( (e)=>{
@@ -51,15 +52,16 @@ $(document).ready(()=>{
 
     const changeLineWidth = ( function(){
         radius = this.value; //get current value of selector#lineWidth
-
+        toggleMenu();
     });
     const rubber = ( (e)=>{
         color = 'white';
+        toggleMenu();
     })
 
     const changeType = (function(){
         penType = this.value; //get current value of selector#penType
-
+        toggleMenu();
     })
 
     const getRandomOffset = radius => { 
