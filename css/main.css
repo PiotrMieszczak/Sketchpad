@@ -12,6 +12,15 @@ body, html{
         padding-left: 2%;
         padding-right: 2%;
     }
+
+.hidden{
+    display:none;
+}
+
+.show{
+    display: block;
+}
+
 .colors_pallet div:nth-of-type(1){
     background-color: red;
 }

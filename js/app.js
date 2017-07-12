@@ -5,7 +5,7 @@ $(document).ready(()=>{
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 //VARIABLES
-    const ctx = canvas.getContext('2d');
+    let ctx = canvas.getContext('2d');
     ctx.fillStyle = 'white';
     ctx.fillRect(0,0,canvas.width,canvas.height);
 
@@ -15,7 +15,7 @@ $(document).ready(()=>{
     let penType = $('select#penType').val();
     let intervalId = null;
 
- 
+    
 //FUNCTIONS
 
     const changeColor = ( (e)=>{ 
@@ -40,7 +40,9 @@ $(document).ready(()=>{
         paint = false;
         ctx.beginPath();  //end of current pen path, after disengage mouse. 
         //if not last path point would always connect to new path (created on next mousedown event)
-        clearInterval(intervalId)
+        clearInterval(intervalId);
+        console.log(intervalId)
+        console.log('test pen up');
        
     });
 
@@ -117,6 +119,14 @@ $(document).ready(()=>{
          this.href = dataURL;
          clearSketchpad();
     }
+
+    const windowResize = function(){ //resizing widow will clear canvas, need to store current ctx as image when redraw it
+        let temp_ctx = ctx.getImageData(0,0,canvas.width,canvas.height);
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        ctx.putImageData(temp_ctx,0,0);
+    }
+
 //EVENTS
     $('canvas').mousemove(draw); 
     $('canvas').on('vmousemove',draw); 
@@ -124,9 +134,8 @@ $(document).ready(()=>{
     $('canvas').mousedown(penDown) 
     $('canvas').on('vmousedown',penDown); 
     
-    $('canvas').mouseup(penUp);
+    $('canvas').on('mouseup',penUp);
     $('canvas').on('vmouseout',penUp);
-
 
     $('#clearSketch').click(clearSketchpad);
     $('#rubber').click(rubber);
@@ -138,5 +147,6 @@ $(document).ready(()=>{
     
     $('#save').click(saveImage);
 
-    
+    $(window).on('resize', windowResize);
+
 });
