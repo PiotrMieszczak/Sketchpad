@@ -48,6 +48,7 @@ $(document).ready(()=>{
         ctx.clearRect(0,0, window.innerWidth, window.innerHeight);
         ctx.fillStyle = 'white';
         ctx.fillRect(0,0,canvas.width,canvas.height);
+        toggleMenu();
     });
 
     const changeLineWidth = ( function(){
@@ -117,6 +118,7 @@ $(document).ready(()=>{
          var dataURL = canvas.toDataURL('image/png');
          this.href = dataURL;
          clearSketchpad();
+         toggleMenu();
     }
 
     const windowResize = ()=>{ 
