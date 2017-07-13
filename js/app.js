@@ -1,4 +1,4 @@
-$(document).ready(()=>{
+document.addEventListener("DOMContentLoaded",()=>{
 
 //CANVAS SETUP
     const canvas= document.querySelector('#canvas');
@@ -10,9 +10,11 @@ $(document).ready(()=>{
     ctx.fillRect(0,0,canvas.width,canvas.height);
 
     let paint= false; //true, if the mouse is press down
-    let radius = $('select#lineWidth').val(); //radius of arc element
+    //let radius = $('select#lineWidth').val(); //radius of arc element
+    let radius = document.querySelector('select#lineWidth').value;
     let color = 'black';
-    let penType = $('select#penType').val();
+    //let penType = $('select#penType').val();
+    let penType = document.querySelector('select#penType').value;
     let intervalId = null;
 
     
@@ -129,33 +131,35 @@ $(document).ready(()=>{
         ctx.putImageData(temp_ctx,0,0);
     }
 
-    const container =$('.container');
-    container.hide();
-    const toggleMenu = ()=>{
-        container.toggle();
+    const container = document.querySelector('.container');
+     container.classList.add('hide');
+     
+     const toggleMenu = ()=>{
+         container.classList.toggle('hide');
     }
 //EVENTS
-    $('header h1').click(toggleMenu);
 
-    $('canvas').mousemove(draw); 
-    $('canvas').on('vmousemove',draw); 
+    document.querySelector('header h1').addEventListener('click',toggleMenu);
+  
 
-    $('canvas').mousedown(penDown) 
-    $('canvas').on('vmousedown',penDown); 
-    
-    $('canvas').on('mouseup',penUp);
-    $('canvas').on('vmouseout',penUp);
+    canvas.addEventListener('mousemove',draw);
 
-    $('#clearSketch').click(clearSketchpad);
-    $('#rubber').click(rubber);
-    
-    $('.colors_pallet div').click(changeColor);
-    
-    $('select#lineWidth').change(changeLineWidth);
-    $('select#penType').change(changeType);
-    
-    $('#save').click(saveImage);
+    canvas.addEventListener('touchmove',draw);
 
-    $(window).on('resize', windowResize);
+    canvas.addEventListener('mousedown',penDown);
+
+    canvas.addEventListener('touchstart',penDown);
+
+    canvas.addEventListener('mouseup',penUp);
+
+    canvas.addEventListener('touchend',penUp);
+
+    document.querySelector('#clearSketch').addEventListener('click',clearSketchpad);
+    document.querySelector('#rubber').addEventListener('click',rubber);
+    document.querySelector('.colors_pallet div').addEventListener('click',changeColor);
+    document.querySelector('select#lineWidth').addEventListener('click',changeLineWidth);
+    document.querySelector('select#penType').addEventListener('click',changeType);  
+    document.querySelector('#save').addEventListener('click',saveImage);  
+    window.addEventListener('resize', windowResize);
     
 });

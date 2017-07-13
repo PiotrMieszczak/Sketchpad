@@ -1,3 +1,6 @@
+*{
+    font-family: "Georgia", Arial, serif;
+}
 body, html{
     overflow:hidden;
 }
@@ -17,6 +20,7 @@ header h1{
     margin-bottom: 1%;
     font-size: 2vh;
 }
+
 
 .colors_pallet div:nth-of-type(1){
     background-color: red;
@@ -173,3 +177,8 @@ header h1{
         border: 1px solid gray;
     }
 }
+
+.hide{
+    display: none;
+}
+
