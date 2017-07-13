@@ -99,6 +99,7 @@ $(document).ready(()=>{
     }
     //MAIN DRAW FN
     const draw = ( e=>{ 
+        event.preventDefault();
         clearInterval(intervalId); //if not interval would not stop on mouse move
         if(paint){ 
             ctx.fillStyle = color;
