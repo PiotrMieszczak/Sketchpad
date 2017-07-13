@@ -64,8 +64,9 @@ header h1{
         text-align: center;
         margin: 1%;
         height: 5vh;
-        font-size: 3vh;
+        font-size: 2vh;
         border: 1px solid white;
+        text-transform: uppercase;
     }
     .colors_pallet {
         display: flex;
@@ -102,8 +103,9 @@ header h1{
         text-align: center;
         margin: 1%;
         height: 5vh;
-        font-size: 3vh;
+        font-size: 2vh;
         border: 1px solid white;
+        text-transform: uppercase;
     }
     .colors_pallet {
         display: flex;
@@ -160,8 +162,9 @@ header h1{
         text-align: center;
         margin: 1%;
         height: 5vh;
-        font-size: 3vh;
+        font-size: 2vh;
         border: 1px solid white;
+        text-transform: uppercase;
     }
 
     .colors_pallet {
@@ -178,7 +181,4 @@ header h1{
     }
 }
 
-.hide{
-    display: none;
-}
 

@@ -48,19 +48,21 @@ $(document).ready(()=>{
         ctx.clearRect(0,0, window.innerWidth, window.innerHeight);
         ctx.fillStyle = 'white';
         ctx.fillRect(0,0,canvas.width,canvas.height);
+        toggleMen();
     });
 
     const changeLineWidth = ( function(){
         radius = this.value; //get current value of selector#lineWidth
-
+        toggleMen();
     });
     const rubber = ( (e)=>{
         color = 'white';
+        toggleMen();
     })
 
     const changeType = (function(){
         penType = this.value; //get current value of selector#penType
-
+        toggleMen();
     })
 
     const getRandomOffset = radius => { 
@@ -117,16 +119,32 @@ $(document).ready(()=>{
          this.href = dataURL;
          clearSketchpad();
     }
+
+
+    const windowResize = ()=>{ 
+        //resizing widow will clear canvas, need to store current ctx as image when redraw it
+        let temp_ctx = ctx.getImageData(0,0,canvas.width,canvas.height);
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        ctx.putImageData(temp_ctx,0,0);
+    }
+
+    const container = $('.container');
+     container.hide();
+     
+     const toggleMenu = ()=>{
+         container.toggle();
+    }
 //EVENTS
+    $('header h1').click(toggleMenu);
+    $(canvas).mousemove(draw); 
+    $(canvas).on('vmousemove',draw); 
 
-    canvas.mousemove(draw); 
-    canvas.on('vmousemove',draw); 
-
-    canvas.mousedown(penDown) 
-    canvas.on('vmousedown',penDown); 
+    $(canvas).mousedown(penDown) 
+    $(canvas).on('vmousedown',penDown); 
     
-    canvas.mouseup(penUp);
-    canvas.on('vmouseout',penUp);
+    $(canvas).mouseup(penUp);
+    $(canvas).on('vmouseout',penUp);
 
 
     $('#clearSketch').click(clearSketchpad);
@@ -138,6 +156,6 @@ $(document).ready(()=>{
     $('select#penType').change(changeType);
     
     $('#save').click(saveImage);
-
+    $(window).on('resize', windowResize);
     
 });
