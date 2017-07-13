@@ -48,21 +48,21 @@ $(document).ready(()=>{
         ctx.clearRect(0,0, window.innerWidth, window.innerHeight);
         ctx.fillStyle = 'white';
         ctx.fillRect(0,0,canvas.width,canvas.height);
-        toggleMen();
+        toggleMenu();
     });
 
     const changeLineWidth = ( function(){
         radius = this.value; //get current value of selector#lineWidth
-        toggleMen();
+        toggleMenu();
     });
     const rubber = ( (e)=>{
         color = 'white';
-        toggleMen();
+        toggleMenu();
     })
 
     const changeType = (function(){
         penType = this.value; //get current value of selector#penType
-        toggleMen();
+        toggleMenu();
     })
 
     const getRandomOffset = radius => { 
@@ -119,6 +119,7 @@ $(document).ready(()=>{
          var dataURL = canvas.toDataURL('image/png');
          this.href = dataURL;
          clearSketchpad();
+         toggleMenu();
     }
 
 
