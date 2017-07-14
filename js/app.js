@@ -20,13 +20,13 @@ $(document).ready(()=>{
     const brushOrSpray = (e)=>{
            // DRAW Brush
             if(penType ==='brush'){
-            drawLine(e);
+                drawLine(e);
             }
           //DRAW SPRAY
            if(penType ==='spray'){
                 drawSpray(e);
-                intervalId = setInterval( ()=>{ //
-                drawSpray(e);
+                intervalId = setInterval( ()=>{
+                    drawSpray(e);
                 },64);
            }
     }
@@ -42,7 +42,7 @@ $(document).ready(()=>{
         ctx.strokeStyle = color;
         ctx.lineWidth = radius*2;
 
-       brushOrSpray(e);
+        brushOrSpray(e);
 
     })
 
@@ -114,7 +114,7 @@ $(document).ready(()=>{
              brushOrSpray(e); 
         }
     });
-    
+
     const saveImage =  function(){
          var dataURL = canvas.toDataURL('image/png');
          this.href = dataURL;
