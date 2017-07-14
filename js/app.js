@@ -19,29 +19,32 @@ $(document).ready(()=>{
 //FUNCTIONS
 
     const changeColor = ( (e)=>{ 
-        color = $(e.currentTarget).data('color');
+         color = $(e.currentTarget).data('color');
+         clearInterval(intervalId);
+          toggleMenu();
     });
 
     const penDown = ( (e)=>{
         paint = true;
+        ctx.fillStyle = color;
+        ctx.strokeStyle = color;
+        ctx.lineWidth = radius*2;
 
         if(penType === 'brush'){
             drawLine(e);
         }
         if(penType === 'spray'){
-            //  drawSpray(e);
             intervalId = setInterval( ()=>{
-                drawSpray(e)
-            },64)
+                drawSpray(e);
+            },64);
         }
     })
 
     const penUp = ( (e)=>{
         paint = false;
+        clearInterval(intervalId);
         ctx.beginPath();  //end of current pen path, after disengage mouse. 
         //if not last path point would always connect to new path (created on next mousedown event)
-        clearInterval(intervalId)
-       
     });
 
     const clearSketchpad = ( e=>{ //clean sketchpad
@@ -76,7 +79,7 @@ $(document).ready(()=>{
     }
 
     const drawLine = e=>{ 
-            ctx.fillStyle = color;
+            
             let offsetLeft = canvas.offsetLeft;
             let offsetTop = canvas.offsetTop;
             let mouseX = e.clientX;
@@ -91,7 +94,7 @@ $(document).ready(()=>{
             ctx.moveTo(mouseX-offsetLeft, mouseY-offsetTop)
     }
     const drawSpray =e=>{
-        ctx.fillStyle = color;
+        
         for(let i=0; i< 50;i++){
             var offset = getRandomOffset(radius);
             ctx.fillRect((e.clientX-offset.x)-canvas.offsetLeft,(e.clientY-offset.y)-canvas.offsetTop, 1, 1);
@@ -99,19 +102,15 @@ $(document).ready(()=>{
     }
     //MAIN DRAW FN
     const draw = ( e=>{ 
-        event.preventDefault();
         clearInterval(intervalId); //if not interval would not stop on mouse move
         if(paint){ 
-            ctx.fillStyle = color;
-            ctx.strokeStyle = color;
-            ctx.lineWidth = radius*2;
            // DRAW LINE
             if(penType ==='brush'){
             drawLine(e);
             }
           //DRAW SPRAY
            if(penType ==='spray'){
-            drawSpray(e);
+                drawSpray(e);
            }
         }
     });
@@ -139,15 +138,9 @@ $(document).ready(()=>{
     }
 //EVENTS
     $('header h1').click(toggleMenu);
-    $(canvas).mousemove(draw); 
     $(canvas).on('vmousemove',draw); 
-
-    $(canvas).mousedown(penDown) 
     $(canvas).on('vmousedown',penDown); 
-    
-    $(canvas).mouseup(penUp);
-    $(canvas).on('vmouseout',penUp);
-
+    $(canvas).on('vmouseup',penUp);
 
     $('#clearSketch').click(clearSketchpad);
     $('#rubber').click(rubber);
