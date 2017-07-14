@@ -14,30 +14,36 @@ $(document).ready(()=>{
     let color = 'black';
     let penType = $('select#penType').val();
     let intervalId = null;
-
  
 //FUNCTIONS
 
+    const brushOrSpray = (e)=>{
+           // DRAW Brush
+            if(penType ==='brush'){
+            drawLine(e);
+            }
+          //DRAW SPRAY
+           if(penType ==='spray'){
+                drawSpray(e);
+                intervalId = setInterval( ()=>{ //
+                drawSpray(e);
+                },64);
+           }
+    }
     const changeColor = ( (e)=>{ 
          color = $(e.currentTarget).data('color');
          clearInterval(intervalId);
           toggleMenu();
     });
-
+    
     const penDown = ( (e)=>{
         paint = true;
         ctx.fillStyle = color;
         ctx.strokeStyle = color;
         ctx.lineWidth = radius*2;
 
-        if(penType === 'brush'){
-            drawLine(e);
-        }
-        if(penType === 'spray'){
-            intervalId = setInterval( ()=>{
-                drawSpray(e);
-            },64);
-        }
+       brushOrSpray(e);
+
     })
 
     const penUp = ( (e)=>{
@@ -103,17 +109,12 @@ $(document).ready(()=>{
     //MAIN DRAW FN
     const draw = ( e=>{ 
         clearInterval(intervalId); //if not interval would not stop on mouse move
+        
         if(paint){ 
-           // DRAW LINE
-            if(penType ==='brush'){
-            drawLine(e);
-            }
-          //DRAW SPRAY
-           if(penType ==='spray'){
-                drawSpray(e);
-           }
+             brushOrSpray(e); 
         }
     });
+    
     const saveImage =  function(){
          var dataURL = canvas.toDataURL('image/png');
          this.href = dataURL;
